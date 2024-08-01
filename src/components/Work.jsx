@@ -63,6 +63,7 @@ function EditJobForm({ jobs, setJobs, targetJob, formShown, setFormShown }) {
   const [position, setPosition] = useState(targetJob.position);
   const [startDate, setStartDate] = useState(targetJob.startDate);
   const [endDate, setEndDate] = useState(targetJob.endDate);
+  const [description, setDescription] = useState(targetJob.description);
 
   function handleCompanyChange(e) {
     setCompany(e.target.value);
@@ -80,6 +81,10 @@ function EditJobForm({ jobs, setJobs, targetJob, formShown, setFormShown }) {
     setEndDate(e.target.value);
   }
 
+  function handleDescriptionChange(e) {
+    setDescription(e.target.value);
+  }
+
   function handleSaveEditJob() {
     if (!company | !position | !startDate | !endDate) {
       alert('Please fill out all missing fields!');
@@ -89,7 +94,8 @@ function EditJobForm({ jobs, setJobs, targetJob, formShown, setFormShown }) {
         company: company,
         position: position,
         startDate: startDate,
-        endDate: endDate
+        endDate: endDate,
+        description: description
       }
 
       let updatedJobsArray = jobs.map(job => {
@@ -149,6 +155,14 @@ function EditJobForm({ jobs, setJobs, targetJob, formShown, setFormShown }) {
         onChange={handleEndDateChange}
       />
       <br />
+      <label htmlFor="description">Job description (optional)</label>
+      <textarea
+        type="text"
+        id="description"
+        value={description}
+        onChange={handleDescriptionChange}
+      />
+      <br />
       <button
         type="button"
         onClick={handleSaveEditJob}
@@ -176,6 +190,7 @@ function AddJobForm({ jobs, setJobs, formShown, setFormShown }) {
   const [position, setPosition] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [description, setDescription] = useState('');
 
   function handleCompanyChange(e) {
     setCompany(e.target.value);
@@ -191,6 +206,10 @@ function AddJobForm({ jobs, setJobs, formShown, setFormShown }) {
 
   function handleEndDateChange(e) {
     setEndDate(e.target.value);
+  }
+
+  function handleDescriptionChange(e) {
+    setDescription(e.target.value);
   }
 
   function handleAddJob() {
@@ -253,6 +272,13 @@ function AddJobForm({ jobs, setJobs, formShown, setFormShown }) {
         id="endDate"
         value={endDate}
         onChange={handleEndDateChange}
+      />
+      <br />
+      <textarea
+        type="text"
+        id="description"
+        value={description}
+        onChange={handleDescriptionChange}
       />
       <br />
       <button
