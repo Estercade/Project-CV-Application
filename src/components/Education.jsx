@@ -18,12 +18,8 @@ function Education({ schools, setSchools, shownSection, setShownSection }) {
     formShown === e.target.value ? setFormShown('') : setFormShown(e.target.value);
   }
 
-  function handleAddSchool() {
-    formShown === 'new' ? setFormShown('') : setFormShown('new');
-  }
-
-  function handleDeleteSchool(e) {
-    setSchools(schools.filter((school) => school.id !== e.target.value));
+  function handleAddSchoolForm() {
+    formShown === 'newSchool' ? setFormShown('') : setFormShown('newSchool');
   }
 
   return (
@@ -44,22 +40,17 @@ function Education({ schools, setSchools, shownSection, setShownSection }) {
               >
                 {school.name}
               </button>
-              <button type="button" 
-                value={school.id}
-                onClick={handleDeleteSchool}>
-                Delete
-              </button>
               {formShown === school.id && <EditSchoolForm schools={schools} setSchools={setSchools} targetSchool={school} formShown={formShown} setFormShown={setFormShown} />}
             </li>
           )}
           <li>
             <button type="button" 
-              value='new'
-              onClick={handleAddSchool}
+              value='newSchool'
+              onClick={handleAddSchoolForm}
             >
               Add new
             </button>
-            {formShown === 'new' && <AddSchoolForm schools={schools} setSchools={setSchools} formShown={formShown} setFormShown={setFormShown} />}
+            {formShown === 'newSchool' && <AddSchoolForm schools={schools} setSchools={setSchools} formShown={formShown} setFormShown={setFormShown} />}
           </li>
         </ul>
       </div>
@@ -112,6 +103,10 @@ function EditSchoolForm({ schools, setSchools, targetSchool, formShown, setFormS
     setFormShown('');
   }
 
+  function handleDeleteSchool(e) {
+    setSchools(schools.filter((school) => school.id !== e.target.value));
+  }
+
   return (
     <form
       action=""
@@ -162,6 +157,12 @@ function EditSchoolForm({ schools, setSchools, targetSchool, formShown, setFormS
       >
         Cancel
       </button>
+      <button type="button" 
+        value={targetSchool.id}
+        onClick={handleDeleteSchool}
+      >
+        Delete
+      </button>
     </form>
   )
 }
@@ -188,7 +189,7 @@ function AddSchoolForm({ schools, setSchools, formShown, setFormShown }) {
     setEndDate(e.target.value);
   }
 
-  function handleAddSchool() {
+  function handleAddSchoolForm() {
     let newSchool = {
       id: uuidv4(),
       name: schoolName,
@@ -211,7 +212,7 @@ function AddSchoolForm({ schools, setSchools, formShown, setFormShown }) {
     <form
       action=""
       className="addSchoolForm"
-      hidden={formShown !== 'new'}
+      hidden={formShown !== 'newSchool'}
     >
       <label htmlFor="schoolName">School name</label>
       <input
@@ -247,7 +248,7 @@ function AddSchoolForm({ schools, setSchools, formShown, setFormShown }) {
       <br />
       <button
         type="button"
-        onClick={handleAddSchool}
+        onClick={handleAddSchoolForm}
       >
         Save
       </button>

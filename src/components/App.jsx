@@ -27,7 +27,23 @@ function App() {
       endDate: "June 2010"
     }
   ]);
-  const [shownSection, setShownSection] = useState('education');
+  const [jobs, setJobs] = useState([
+    {
+      id: uuidv4(),
+      company: "Real workplace",
+      position: "Real job",
+      startDate: "Jun 2010",
+      endDate: "June 2015"
+    },
+    {
+      id: uuidv4(),
+      company: "Definitely real workplace",
+      position: "Definitely real job",
+      startDate: "August 2015",
+      endDate: "August 2020"
+    }
+  ])
+  const [shownSection, setShownSection] = useState('work');
 
   function ShowEducation() {
     return (
@@ -44,7 +60,7 @@ function App() {
       <br />
       <Education schools={schools} setSchools={setSchools} shownSection={shownSection} setShownSection={setShownSection} />
       <br />
-      <Work shownSection={shownSection} setShownSection={setShownSection} />
+      <Work jobs={jobs} setJobs={setJobs} shownSection={shownSection} setShownSection={setShownSection} />
     </>
   )
 }
