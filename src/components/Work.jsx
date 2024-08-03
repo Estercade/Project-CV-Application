@@ -23,38 +23,35 @@ function Work({ jobs, setJobs, shownSection, setShownSection }) {
   }
 
   return (
-    <section className="workSection">
-      <button
-        type="button"
-        onClick={handleShownSection}
-      >
-        <h2>Professional experience</h2>
+    <div className="workContainer formSubsection">
+      <button type="button" onClick={handleShownSection} className="workListButton">
+        <h2 className="workInfoTitle formSectionTitle">
+          Professional experience
+          <span className="expandedIconSection" hidden={shownSection === 'work'} aria-hidden>&#43;</span>
+          <span className="collapsedIconSection" hidden={shownSection !== 'work'} aria-hidden>&#8722;</span>
+        </h2>
       </button>
       <div className="workContainer" hidden={shownSection !== 'work'}>
-        <ul>
+        <ul className="workFormList">
           {jobs.map((job) => 
-            <li key={job.id}>
-              <button type="button"
-                value={job.id}
-                onClick={handleEditJob}
-              >
+            <li key={job.id} className="workFormListItem">
+              <button type="button" value={job.id} onClick={handleEditJob} className="workFormJobButton">
                 {job.company}
+                <span className="expandedIcon" hidden={formShown === job.id} aria-hidden>&#43;</span>
+                <span className="collapsedIcon" hidden={formShown !== job.id} aria-hidden>&#8722;</span>
               </button>              
               {formShown === job.id && <EditJobForm jobs={jobs} setJobs={setJobs} targetJob={job} formShown={formShown} setFormShown={setFormShown} />}
             </li>
           )}
           <li>
-            <button type="button" 
-              value='newJob'
-              onClick={handleAddJobForm}
-            >
+            <button type="button" value="newJob" onClick={handleAddJobForm} className="addNewJobButton">
               Add new
             </button>
             {formShown === 'newJob' && <AddJobForm jobs={jobs} setJobs={setJobs} formShown={formShown} setFormShown={setFormShown} />}
           </li>
         </ul>
       </div>
-    </section>
+    </div>
   )
 }
 
@@ -87,7 +84,7 @@ function EditJobForm({ jobs, setJobs, targetJob, formShown, setFormShown }) {
 
   function handleSaveEditJob() {
     if (!company | !position | !startDate | !endDate) {
-      alert('Please fill out all missing fields!');
+      alert('Please fill out all required fields!');
     } else {
       let updatedJob = {
         id: targetJob.id,
@@ -118,69 +115,53 @@ function EditJobForm({ jobs, setJobs, targetJob, formShown, setFormShown }) {
   }
   
   return (
-    <form
-      action=""
-      className="workForm"
-    >
-      <label htmlFor="company">Company name</label>
-      <input
-          type="text"
-          id="company"
-          value={company}
-          onChange={handleCompanyChange}
-        />
-      <br />
-      <label htmlFor="position">Position title</label>
-      <input
-          type="text"
-          id="position"
-          value={position}
-          onChange={handlePositionChange}
-          required
-        />
-      <br />
-      <label htmlFor="startDate">Start date</label>
-      <input
-        type="text"
-        id="startDate"
-        value={startDate}
-        onChange={handleStartDateChange}
-      />
-      <br />
-      <label htmlFor="endDate">End date</label>
-      <input
-        type="text"
-        id="endDate"
-        value={endDate}
-        onChange={handleEndDateChange}
-      />
-      <br />
-      <label htmlFor="description">Job description (optional)</label>
-      <textarea
-        type="text"
-        id="description"
-        value={description}
-        onChange={handleDescriptionChange}
-      />
-      <br />
-      <button
-        type="button"
-        onClick={handleSaveEditJob}
-      >
-        Save
-      </button>
-      <button
-        type="button"
-        onClick={handleCancelEditJob}
-      >
-        Cancel
-      </button>
-      <button type="button"
-        value={targetJob.id}
-        onClick={handleDeleteJob}
-      >
-        Delete
-      </button>
+    <form action="" className="workForm">
+      <div className="workFormItem">
+        <label htmlFor="company">
+          Company name
+          <span className="required formRequirement">required</span>
+        </label>
+        <input type="text" id="company" value={company} onChange={handleCompanyChange} area-describedby="required-company-name" required />
+      </div>
+      <div className="workFormItem">
+        <label htmlFor="position">
+          Position title
+          <span className="required formRequirement">required</span>
+        </label>
+        <input type="text" id="position" value={position} onChange={handlePositionChange} area-describedby="required-position-title" required />
+      </div>
+      <div className="workFormItem">
+        <label htmlFor="startDate">
+          Start date
+          <span className="required formRequirement">required</span>
+        </label>
+        <input type="text" id="startDate" value={startDate} onChange={handleStartDateChange} area-describedby="required-position-start-date" required />
+      </div>
+      <div className="workFormItem">
+        <label htmlFor="endDate">
+          End date
+          <span className="required formRequirement">required</span>
+        </label>
+        <input type="text" id="endDate" value={endDate} onChange={handleEndDateChange} area-describedby="required-position-end-date" required />
+      </div>
+      <div className="workFormItem">
+        <label htmlFor="description">
+          Job description
+          <span className="optional formRequirement">optional</span>
+        </label>
+        <textarea type="text" id="description" value={description} onChange={handleDescriptionChange} />
+      </div>
+      <div className="formControlsContainer editJobFormControls">
+        <button type="button" onClick={handleSaveEditJob} className="saveEditJobButton">
+          Save
+        </button>
+        <button type="button" onClick={handleCancelEditJob} className="cancelEditJobButton">
+          Cancel
+        </button>
+        <button type="button" value={targetJob.id} onClick={handleDeleteJob} className="deleteJobButton">
+          Delete
+        </button>
+      </div>
     </form>
   )
 }
@@ -214,7 +195,7 @@ function AddJobForm({ jobs, setJobs, formShown, setFormShown }) {
 
   function handleAddJob() {
     if (!company | !position | !startDate | !endDate) {
-      alert('Please fill out all missing fields!');
+      alert('Please fill out all required fields!');
     } else {
       let newJob = {
         id: uuidv4(),
@@ -236,63 +217,50 @@ function AddJobForm({ jobs, setJobs, formShown, setFormShown }) {
   }
 
   return (
-    <form
-      action=""
-      className="addJobForm"
-      hidden={formShown !== 'newJob'}
-    >
-      <label htmlFor="company">Company name</label>
-      <input
-          type="text"
-          id="company"
-          value={company}
-          onChange={handleCompanyChange}
-          required
-        />
-      <br />
-      <label htmlFor="position">Position title</label>
-      <input
-        type="text"
-        id="position"
-        value={position}
-        onChange={handlePositionChange}
-      />
-      <br />
-      <label htmlFor="startDate">Start date</label>
-      <input
-        type="text"
-        id="startDate"
-        value={startDate}
-        onChange={handleStartDateChange}
-      />
-      <br />
-      <label htmlFor="endDate">End date</label>
-      <input
-        type="text"
-        id="endDate"
-        value={endDate}
-        onChange={handleEndDateChange}
-      />
-      <br />
-      <textarea
-        type="text"
-        id="description"
-        value={description}
-        onChange={handleDescriptionChange}
-      />
-      <br />
-      <button
-        type="button"
-        onClick={handleAddJob}
-      >
-        Save
-      </button>
-      <button
-        type="button"
-        onClick={handleCancelAddJob}
-      >
-        Cancel
-      </button>
+    <form action="" className="addJobForm" hidden={formShown !== 'newJob'}>
+      <div className="addJobFormItem">
+        <label htmlFor="company">
+          Company name
+          <span className="required formRequirement">required</span>
+        </label>
+        <input type="text" id="company" value={company} onChange={handleCompanyChange} />
+      </div>
+      <div className="addJobFormItem">
+        <label htmlFor="position">
+          Position title
+          <span className="required formRequirement">required</span>
+        </label>
+        <input type="text" id="position" value={position} onChange={handlePositionChange} />
+      </div>
+      <div className="addJobFormItem">
+        <label htmlFor="startDate">
+          Start date
+          <span className="required formRequirement">required</span>
+        </label>
+        <input type="text" id="startDate" value={startDate} onChange={handleStartDateChange} />
+      </div>
+      <div className="addJobFormItem">
+        <label htmlFor="endDate">
+          End date
+          <span className="required formRequirement">required</span>
+        </label>
+        <input type="text" id="endDate" value={endDate} onChange={handleEndDateChange} />
+      </div>
+      <div className="addJobFormItem">
+        <label htmlFor="description">
+            Job description
+          <span className="optional formRequirement">optional</span>
+        </label>
+        <textarea type="text" id="description" value={description} onChange={handleDescriptionChange} />
+      </div>
+      <div className="formControlsContainer jobFormControls">
+        <button type="button" onClick={handleAddJob} className="addNewJobButton">
+          Save
+        </button>
+        <button type="button" onClick={handleCancelAddJob}>
+          Cancel
+        </button>
+      </div>
     </form>
   )
 }
