@@ -18,7 +18,8 @@ function Education({ schools, setSchools, shownSection, setShownSection }) {
     formShown === e.target.value ? setFormShown('') : setFormShown(e.target.value);
   }
 
-  function handleAddSchoolForm() {
+  function handleAddSchoolForm(e) {
+    console.log(e.target);
     formShown === 'newSchool' ? setFormShown('') : setFormShown('newSchool');
   }
 
@@ -44,7 +45,7 @@ function Education({ schools, setSchools, shownSection, setShownSection }) {
             </li>
           )}
           <li>
-            <button type="button" value='newSchool' onClick={handleAddSchoolForm} className="addNewSchoolButton">
+            <button type="button" value='addSchoolForm' onClick={handleAddSchoolForm} className="addNewSchoolButton">
               Add new
             </button>
             {formShown === 'newSchool' && <AddSchoolForm schools={schools} setSchools={setSchools} formShown={formShown} setFormShown={setFormShown} />}

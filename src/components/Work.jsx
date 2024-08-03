@@ -254,7 +254,7 @@ function AddJobForm({ jobs, setJobs, formShown, setFormShown }) {
         <textarea type="text" id="description" value={description} onChange={handleDescriptionChange} />
       </div>
       <div className="formControlsContainer jobFormControls">
-        <button type="button" onClick={handleAddJob} className="addNewJobButton">
+        <button type="button" onClick={handleAddJob} className="saveAddJobButton">
           Save
         </button>
         <button type="button" onClick={handleCancelAddJob}>

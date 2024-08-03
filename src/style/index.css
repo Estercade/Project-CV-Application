@@ -25,6 +25,10 @@ button {
     border: none;
 }
 
+button:hover {
+    background-color: lightblue;
+}
+
 /* basic styling */
 
 #root {
@@ -130,7 +134,7 @@ textarea {
     border-radius: 5px;
 }
 
-.saveEditGeneralInfoButton, .saveEditSchoolButton, .saveAddSchoolButton {
+.saveEditGeneralInfoButton, .saveEditSchoolButton, .saveAddSchoolButton, .saveEditJobButton, .saveAddJobButton {
     margin-right: 0.3rem;
 }
 
@@ -172,14 +176,18 @@ textarea {
     width: 1rem;
     position: relative;
     top: 0.1rem;
-    margin-right: 0.3rem;
+    margin-right: 0.2rem;
 }
 
 .contactInfo {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.4rem;
+}
+
+.contactInfo div {
+    margin-right: 0.5rem;
 }
 
 .rowContainer {
