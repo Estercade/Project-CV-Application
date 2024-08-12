@@ -4,7 +4,8 @@ This project was made following the instructions and specifications for The Odin
 
 ## Description
 
-The goal of this project is to create a curriculum vitae (CV) generator using React. The application should allow users to enter in their information into input fields and submit them to generate a CV. This program is optimized for use with Google Chrome.
+The goal of this project is to create a curriculum vitae (CV) generator using React. The application should allow users to enter in their information into input fields and submit them to generate a CV. This program is optimized for use with Google Chrome.  
+Live demo: https://project-cv-application-7fb.pages.dev/
 
 ### Features
 
